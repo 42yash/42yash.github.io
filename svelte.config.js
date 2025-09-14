@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,10 +8,23 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter()
+		// Static adapter for GitHub Pages deployment
+		adapter: adapter({
+			// Pages are generated here
+			pages: 'build',
+			// Assets are placed here
+			assets: 'build',
+			// Fallback page for SPAs
+			fallback: undefined,
+			// Precompress files
+			precompress: false,
+			// Strict mode ensures all pages are prerendered
+			strict: true
+		}),
+		// Uncomment and update if deploying to a subpath like /exhibit-a
+		// paths: {
+		// 	base: '/exhibit-a'
+		// }
 	}
 };
 

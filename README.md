@@ -176,32 +176,91 @@ Update the color palette in `src/lib/config/pages.ts`. Each page configuration i
 - `slideDirection`: Animation direction
 - `zIndex`: Layer order
 
-## 🚀 Deployment
+## 🚀 Deployment to GitHub Pages
 
-### Build
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
 
+### Automatic Deployment Setup
+
+1. **Push to GitHub:**
 ```bash
-bun run build
+git remote add origin https://github.com/42yash/exhibit-a.git
+git push -u origin main
 ```
 
-The build output will be in the `.svelte-kit` directory.
+2. **Enable GitHub Pages:**
+   - Go to your repository on GitHub
+   - Navigate to **Settings** → **Pages**
+   - Under "Source", select **"GitHub Actions"**
 
-### Deploy to Vercel
+3. **Configure Base Path:**
 
+   **Option A: Deploy to `42yash.github.io` (Main User Site)**
+   - Rename your repository to `42yash.github.io`
+   - No base path configuration needed
+   - Site will be available at: `https://42yash.github.io`
+
+   **Option B: Deploy to `42yash.github.io/exhibit-a` (Project Site)**
+   - Keep current repository name
+   - Update `svelte.config.js`:
+   ```js
+   kit: {
+     adapter: adapter({...}),
+     paths: {
+       base: '/exhibit-a'
+     }
+   }
+   ```
+   - Site will be available at: `https://42yash.github.io/exhibit-a`
+
+4. **Deploy:**
+   - Any push to the `main` branch triggers automatic deployment
+   - Or manually trigger via Actions tab on GitHub
+
+### Manual Build & Deployment
+
+```bash
+# Build for production
+bun run build
+
+# Test production build locally
+bun run preview
+```
+
+The static files will be in the `build` directory, ready for any static hosting service.
+
+### Configuration Details
+
+- **Static Adapter**: Uses `@sveltejs/adapter-static` for SSG
+- **Prerendering**: All pages are prerendered for optimal performance
+- **GitHub Actions**: Workflow in `.github/workflows/deploy.yml`
+- **Bun Support**: Workflow uses Bun for fast builds
+- **Trailing Slashes**: Configured for GitHub Pages compatibility
+
+### Troubleshooting
+
+- **404 on refresh**: Make sure `trailingSlash = 'always'` in `+layout.js`
+- **Assets not loading**: Check base path configuration if using project site
+- **Build fails**: Ensure all pages are prerenderable (no server-only code)
+
+### Alternative Deployment Options
+
+**Vercel:**
 ```bash
 npm i -g vercel
 vercel
 ```
 
-### Deploy to Netlify
-
+**Netlify:**
 ```bash
-# Install Netlify CLI
 npm i -g netlify-cli
-
-# Deploy
 netlify deploy --prod
 ```
+
+**Cloudflare Pages:**
+- Connect GitHub repository
+- Build command: `bun run build`
+- Build output: `build`
 
 ## 📚 Documentation
 
