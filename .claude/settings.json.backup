@@ -1,0 +1,75 @@
+{
+  "description": "Claude-Quest configuration - Teaching-focused development guide system",
+  "environmentVariables": {
+    "CLAUDE_QUEST_MODE": "true",
+    "CLAUDE_QUEST_TEACH_ONLY": "true",
+    "CLAUDE_QUEST_RESEARCH_FIRST": "true"
+  },
+  "tools": {
+    "WebSearch": {
+      "enabled": true,
+      "priority": "high",
+      "autoUse": true
+    },
+    "WebFetch": {
+      "enabled": true,
+      "priority": "high"
+    },
+    "Task": {
+      "enabled": true,
+      "priority": "medium"
+    },
+    "Read": {
+      "enabled": true,
+      "priority": "medium"
+    },
+    "Glob": {
+      "enabled": true,
+      "priority": "medium"
+    },
+    "Grep": {
+      "enabled": true,
+      "priority": "medium"
+    },
+    "Edit": {
+      "enabled": false,
+      "reason": "Claude-Quest mode prioritizes teaching over direct code modification"
+    },
+    "Write": {
+      "enabled": false,
+      "reason": "Users should write their own code for learning. Only enabled for documentation and config files."
+    },
+    "MultiEdit": {
+      "enabled": false,
+      "reason": "Claude-Quest mode encourages users to make their own edits"
+    }
+  },
+  "hooks": {
+    "beforeToolUse": [
+      {
+        "tool": "*",
+        "command": "echo '[Claude-Quest] Researching and preparing to guide you through: $TOOL_NAME'"
+      }
+    ],
+    "afterWebSearch": [
+      {
+        "command": "echo '[Claude-Quest] Documentation researched. Ready to teach concepts.'"
+      }
+    ]
+  },
+  "defaultSubagents": [
+    "doc-researcher",
+    "concept-teacher",
+    "version-guide",
+    "learning-coach"
+  ],
+  "projectType": "teaching-guide",
+  "learningMode": true,
+  "autoResearch": true,
+  "preferredDocSources": [
+    "official documentation",
+    "GitHub repositories",
+    "developer guides",
+    "best practices articles"
+  ]
+}
