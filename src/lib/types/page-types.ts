@@ -1,13 +1,15 @@
 export type PageName = 'hero' | 'main' | 'left' | 'right' | 'up' | 'down';
 
-export type SlideDirection = 'up' | 'down' | 'left' | 'right';
-
 export interface PageConfig {
   title: string;
   color: string;
   textColor?: string;
-  slideDirection?: SlideDirection;
   zIndex?: number;
+}
+
+export interface CameraPosition {
+  x: number;
+  y: number;
 }
 
 export interface TransitionParams {

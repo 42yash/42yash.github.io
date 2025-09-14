@@ -1,15 +1,19 @@
-# Exhibit A - Page Animation System
+# Exhibit A - Interactive Portfolio Website
 
-A sophisticated, modular page animation system built with Svelte 5, featuring directional slides, matte colors, and special hero-to-main reveal animations.
+An interactive portfolio website built with Svelte 5, featuring sophisticated page animations, a tech stack showcase, and specialized sections for projects, resume, and AI chat.
 
 ## 🎨 Features
 
-- **Directional Slide Animations**: Pages slide in from their logical direction (up, down, left, right)
-- **Hero Page Reveal**: Hero slides up to reveal the Main page underneath
-- **Matte Color Palette**: Sophisticated, desaturated colors for a modern look
-- **Fast Transitions**: 150ms animations for snappy, responsive feel
-- **Keyboard Navigation**: Full keyboard support with arrow keys
-- **Modular Architecture**: Clean separation of concerns with TypeScript
+- **Welcome Hero Page**: Tech stack showcase with one-time dismissal
+- **Diagonal Navigation Hub**: Main page with four triangular sections
+- **Portfolio Sections**:
+  - Projects Dashboard (Left)
+  - Professional Resume (Right)
+  - AI Chat Interface (Down)
+  - Coming Soon (Up)
+- **Synchronized Animations**: Pages move together as one unit
+- **Keyboard Navigation**: Arrow keys and ESC for quick navigation
+- **Modular Architecture**: Clean separation with TypeScript and Svelte 5
 
 ## 🚀 Quick Start
 
@@ -39,15 +43,13 @@ Visit `http://localhost:5173` to see the animation system in action.
 Click the navigation buttons at the top-left of the screen
 
 ### Keyboard
-- **Arrow Keys**: Navigate to directional pages
-  - `↑` Up page
-  - `↓` Down page
-  - `←` Left page
-  - `→` Right page
-- **Quick Access**:
-  - `ESC` Main page
-  - `H` Hero page
-  - `M` Main page
+- **Hero Page**: Press `Enter` to dismiss (one-time only)
+- **Navigation** (after hero dismissal):
+  - `←` Projects page
+  - `→` Resume page
+  - `↑` Coming Soon page
+  - `↓` AI Chat page
+  - `ESC` Return to Main/Home
 
 ## 🏗️ Architecture
 
@@ -64,8 +66,14 @@ src/lib/
 ├── transitions/
 │   └── page-transitions.ts     # Reusable transition functions
 └── components/
-    ├── PageTemplate.svelte      # Individual page template
-    └── PageManager.svelte       # Main orchestration component
+    ├── PageManager.svelte       # Main orchestration component
+    └── pages/                   # Individual page components
+        ├── HeroPage.svelte      # Welcome & tech stack
+        ├── MainPage.svelte      # Diagonal navigation hub
+        ├── ProjectsPage.svelte  # Portfolio projects
+        ├── ResumePage.svelte    # Professional experience
+        ├── AIChatPage.svelte    # AI assistant interface
+        └── ComingSoonPage.svelte # Placeholder for future
 ```
 
 ### Key Technologies
@@ -88,16 +96,16 @@ Uses Svelte 5's new runes system:
 - **Layered approach**: Main page acts as persistent background
 - **Custom transitions**: Specialized functions for different animation types
 
-## 🎨 Color Palette
+## 📄 Pages
 
-| Page  | Color     | Hex       | Description      |
-|-------|-----------|-----------|------------------|
-| Hero  | Matte Gray | `#6B7280` | Entry page       |
-| Main  | Light Gray | `#E5E7EB` | Base navigation  |
-| Left  | Matte Coral| `#FCA5A5` | Left slide page  |
-| Right | Matte Mint | `#A7F3D0` | Right slide page |
-| Up    | Matte Sky  | `#BFDBFE` | Up slide page    |
-| Down  | Matte Lavender | `#DDD6FE` | Down slide page |
+| Page  | Purpose     | Color     | Access           |
+|-------|-------------|-----------|------------------|
+| Hero  | Welcome & Tech Stack | Purple Gradient | Initial load only |
+| Main  | Navigation Hub | Dark with colored sections | ESC key |
+| Projects | Portfolio Dashboard | Coral (`#FCA5A5`) | Left/← key |
+| Resume | Professional Experience | Mint (`#A7F3D0`) | Right/→ key |
+| AI Chat | Interactive Assistant | Lavender (`#DDD6FE`) | Down/↓ key |
+| Coming Soon | Future Features | Sky Blue (`#BFDBFE`) | Up/↑ key |
 
 ## 📁 Project Structure
 
@@ -115,6 +123,7 @@ exhibit-a/
 │   └── app.css                 # Global styles
 ├── static/                     # Static assets
 ├── dep-docs/                   # Documentation cache
+│   └── svelte5-patterns.md     # Svelte 5 best practices
 ├── ARCHITECTURE.md             # Detailed architecture docs
 ├── CLAUDE.md                   # Claude-Quest configuration
 └── README.md                   # This file

@@ -10,6 +10,7 @@ let _currentPage = $state<PageName>('hero');
 let _previousPage = $state<PageName>('hero');
 let _isTransitioning = $state(false);
 let _transitionHistory = $state<PageName[]>(['hero']);
+let _heroWasDismissed = $state(false);
 
 // Derived state for special transitions
 let isHeroToMain = $derived(_previousPage === 'hero' && _currentPage === 'main');
@@ -40,6 +41,11 @@ class PageState {
    * Navigate to a new page
    */
   navigateTo(page: PageName): void {
+    // Prevent navigation to hero if it was dismissed
+    if (page === 'hero' && _heroWasDismissed) {
+      return;
+    }
+
     if (_currentPage === page || _isTransitioning) {
       return;
     }
@@ -63,7 +69,24 @@ class PageState {
     // Reset transitioning flag after animation completes
     setTimeout(() => {
       _isTransitioning = false;
-    }, 150); // Match animation duration
+    }, 300); // Match animation duration
+  }
+
+  /**
+   * Dismiss hero page (one-time only)
+   */
+  dismissHero(): void {
+    if (_currentPage === 'hero') {
+      _heroWasDismissed = true;
+      this.navigateTo('main');
+    }
+  }
+
+  /**
+   * Check if hero was dismissed
+   */
+  get heroWasDismissed(): boolean {
+    return _heroWasDismissed;
   }
 
   /**
@@ -91,10 +114,22 @@ class PageState {
    * Reset to initial state
    */
   reset(): void {
-    _currentPage = 'hero';
-    _previousPage = 'hero';
+    _currentPage = _heroWasDismissed ? 'main' : 'hero';
+    _previousPage = _heroWasDismissed ? 'main' : 'hero';
     _isTransitioning = false;
-    _transitionHistory = ['hero'];
+    _transitionHistory = [_currentPage];
+  }
+
+  /**
+   * Initialize page state (called on mount)
+   */
+  initialize(): void {
+    // Start at main if hero was previously dismissed (in this session)
+    if (_heroWasDismissed && _currentPage === 'hero') {
+      _currentPage = 'main';
+      _previousPage = 'main';
+      _transitionHistory = ['main'];
+    }
   }
 
   /**
