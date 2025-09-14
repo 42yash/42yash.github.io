@@ -1,248 +1,226 @@
-# Claude-Quest 🎯
+# Exhibit A - Page Animation System
 
-**Transform Claude into your personal coding mentor and learning guide**
+A sophisticated, modular page animation system built with Svelte 5, featuring directional slides, matte colors, and special hero-to-main reveal animations.
 
-Claude-Quest is a specialized configuration system that transforms Claude from a code-writing assistant into an educational guide focused on teaching concepts, researching documentation, and helping you build applications through understanding rather than copy-paste.
+## 🎨 Features
 
-## 🌟 Philosophy
-
-Instead of writing code _for_ you, Claude-Quest teaches you _how_ to write code by:
-
-- **Documentation-First**: Always researching current, official documentation before providing guidance
-- **Concept-Driven**: Explaining the "why" behind technical decisions, not just the "how"
-- **Learning-Focused**: Breaking complex features into achievable learning milestones
-- **Game-Like Experience**: Making development feel like a rewarding learning adventure
+- **Directional Slide Animations**: Pages slide in from their logical direction (up, down, left, right)
+- **Hero Page Reveal**: Hero slides up to reveal the Main page underneath
+- **Matte Color Palette**: Sophisticated, desaturated colors for a modern look
+- **Fast Transitions**: 150ms animations for snappy, responsive feel
+- **Keyboard Navigation**: Full keyboard support with arrow keys
+- **Modular Architecture**: Clean separation of concerns with TypeScript
 
 ## 🚀 Quick Start
 
-1. **Copy this entire directory** to your project root or use as a template
-2. **Run the initialization**:
-   ```bash
-   node scripts/init-documentation.js
-   ```
-3. **Start Claude Code** in this directory - it will automatically detect the configuration
-4. **Ask any development question** and watch Claude transform into your personal coding mentor!
+### Prerequisites
+- Node.js 18+ or Bun
+- npm, yarn, pnpm, or bun package manager
 
-## 🎮 How It Works
+### Installation
 
-### The Teaching Experience
+```bash
+# Clone the repository
+git clone [your-repo-url]
+cd exhibit-a
 
-Instead of this:
+# Install dependencies
+bun install  # or npm install
 
-```
-You: "How do I add authentication to my app?"
-Claude: [writes 200 lines of auth code]
-```
-
-You get this:
-
-```
-You: "How do I add authentication to my app?"
-Claude:
-🔍 Let me research the current best practices for authentication...
-📚 I found the latest documentation for [your framework]...
-
-Authentication serves three core purposes in web applications:
-1. Identity verification (who are you?)
-2. Authorization (what can you do?)
-3. Session management (staying logged in)
-
-For your [detected framework] project, here's how these concepts integrate:
-
-[Detailed conceptual explanation with integration guidance]
-
-Ready to implement the first piece? Let's start with understanding JWT tokens...
+# Start development server
+bun run dev  # or npm run dev
 ```
 
-### Smart Subagents
+Visit `http://localhost:5173` to see the animation system in action.
 
-Claude-Quest automatically routes your questions to specialized subagents:
+## 🎮 Navigation
 
-- **🔬 doc-researcher**: Finds and analyzes current documentation
-- **🧑‍🏫 concept-teacher**: Explains concepts and integration strategies
-- **📊 version-guide**: Ensures you're using the best, compatible versions
-- **🏃‍♂️ learning-coach**: Provides structured learning paths and encouragement
+### Mouse/Touch
+Click the navigation buttons at the top-left of the screen
 
-## 📂 Directory Structure
+### Keyboard
+- **Arrow Keys**: Navigate to directional pages
+  - `↑` Up page
+  - `↓` Down page
+  - `←` Left page
+  - `→` Right page
+- **Quick Access**:
+  - `ESC` Main page
+  - `H` Hero page
+  - `M` Main page
 
-```
-claude-quest/
-├── CLAUDE.md                 # Core teaching instructions for Claude
-├── claude-quest.config.js    # Configuration system
-├── scripts/
-│   └── init-documentation.js # Repository scanning and setup
-├── .claude/
-│   ├── settings.json         # Claude Code integration settings
-│   └── agents/               # Specialized subagents
-│       ├── doc-researcher.md
-│       ├── concept-teacher.md
-│       ├── version-guide.md
-│       └── learning-coach.md
-├── dep-docs/                 # Cached documentation summaries
-│   ├── frameworks/
-│   ├── libraries/
-│   ├── tools/
-│   └── examples/
-├── learning-paths/           # Structured learning sequences
-│   ├── beginner/
-│   ├── intermediate/
-│   └── advanced/
-└── concept-library/          # Reusable concept explanations
-    ├── patterns/
-    ├── architectures/
-    └── best-practices/
-```
+## 🏗️ Architecture
 
-## 🛠 Usage Examples
-
-### Learning a New Framework
+### Module Structure
 
 ```
-You: "I want to learn React for my project"
-Claude:
-🔍 Researching React documentation and best practices...
-
-React is built around three core concepts that revolutionized frontend development:
-
-1. **Component-Based Architecture**: Think of your UI as a tree of reusable components
-2. **Declarative Rendering**: Describe what the UI should look like, not how to change it
-3. **Unidirectional Data Flow**: Data flows down, events flow up
-
-Let's see how these apply to your project structure...
-
-[Continues with interactive learning experience]
+src/lib/
+├── types/
+│   └── page-types.ts           # TypeScript type definitions
+├── config/
+│   └── pages.ts                # Page configurations and colors
+├── state/
+│   └── page-state.svelte.ts    # Svelte 5 rune-based state management
+├── transitions/
+│   └── page-transitions.ts     # Reusable transition functions
+└── components/
+    ├── PageTemplate.svelte      # Individual page template
+    └── PageManager.svelte       # Main orchestration component
 ```
 
-### Adding a Feature
+### Key Technologies
+
+- **Svelte 5**: Latest version with runes for reactive state
+- **TypeScript**: Full type safety across the application
+- **Vite**: Fast build tool and dev server
+- **SvelteKit**: Application framework
+
+### State Management
+
+Uses Svelte 5's new runes system:
+- `$state`: Reactive state variables
+- `$derived`: Computed values
+- Module-level state in `.svelte.ts` files
+
+### Animation System
+
+- **CSS-based**: GPU-accelerated transforms for smooth performance
+- **Layered approach**: Main page acts as persistent background
+- **Custom transitions**: Specialized functions for different animation types
+
+## 🎨 Color Palette
+
+| Page  | Color     | Hex       | Description      |
+|-------|-----------|-----------|------------------|
+| Hero  | Matte Gray | `#6B7280` | Entry page       |
+| Main  | Light Gray | `#E5E7EB` | Base navigation  |
+| Left  | Matte Coral| `#FCA5A5` | Left slide page  |
+| Right | Matte Mint | `#A7F3D0` | Right slide page |
+| Up    | Matte Sky  | `#BFDBFE` | Up slide page    |
+| Down  | Matte Lavender | `#DDD6FE` | Down slide page |
+
+## 📁 Project Structure
 
 ```
-You: "How do I add real-time notifications?"
-Claude:
-🔍 Researching WebSocket implementations for your stack...
-
-Real-time notifications involve three key architectural pieces:
-1. **Client-Server Connection**: Persistent communication channel
-2. **Event Broadcasting**: Distributing messages to relevant users
-3. **State Synchronization**: Keeping UI in sync with server events
-
-Based on your current setup with [detected stack], here's how these concepts integrate...
-
-[Guides through understanding each piece and how to implement]
+exhibit-a/
+├── src/
+│   ├── lib/                    # Shared library code
+│   │   ├── components/         # Svelte components
+│   │   ├── config/             # Configuration files
+│   │   ├── state/              # State management
+│   │   ├── transitions/        # Animation utilities
+│   │   └── types/              # TypeScript types
+│   ├── routes/                 # SvelteKit routes
+│   │   └── +page.svelte        # Main page
+│   └── app.css                 # Global styles
+├── static/                     # Static assets
+├── dep-docs/                   # Documentation cache
+├── ARCHITECTURE.md             # Detailed architecture docs
+├── CLAUDE.md                   # Claude-Quest configuration
+└── README.md                   # This file
 ```
 
-## 🎯 Key Features
+## 🛠️ Development
 
-### 🔍 Always Research First
+### Scripts
 
-- Web searches for current documentation before every response
-- Verifies information across multiple authoritative sources
-- Prioritizes official documentation and current best practices
+```bash
+# Development server
+bun run dev
 
-### 📚 Documentation Caching
+# Build for production
+bun run build
 
-- Automatically scans your project dependencies
-- Creates cached documentation summaries for faster responses
-- Maintains version-aware information for compatibility
+# Preview production build
+bun run preview
 
-### 🎓 Progressive Learning
+# Type checking
+bun run check
 
-- Breaks complex topics into manageable learning steps
-- Builds understanding from fundamental concepts up
-- Provides clear learning checkpoints and milestones
+# Linting
+bun run lint
 
-### 🧭 Personalized Guidance
+# Formatting
+bun run format
+```
 
-- Adapts to your specific project structure and technologies
-- Provides context-aware examples and integration strategies
-- Suggests learning paths tailored to your goals
+### Adding New Pages
 
-## 🔧 Configuration
+1. Add page name to `PageName` type in `src/lib/types/page-types.ts`
+2. Add configuration to `pageConfigs` in `src/lib/config/pages.ts`
+3. Add label to `pageLabels` in the same file
+4. Page automatically appears in navigation
 
-### Environment Variables
+### Customizing Animations
 
-The system recognizes these environment variables:
+Edit transition functions in `src/lib/transitions/page-transitions.ts`:
+- `slideIn/slideOut`: Basic slide animations
+- `coverIn/uncoverOut`: Overlay animations
+- `fadeTransition`: Opacity animations
+- `scaleTransition`: Scale with fade
 
-- `CLAUDE_QUEST_MODE=true` - Enables teaching-focused mode
-- `CLAUDE_QUEST_TEACH_ONLY=true` - Disables direct code writing
-- `CLAUDE_QUEST_RESEARCH_FIRST=true` - Forces documentation research
+### Modifying Colors
 
-### Custom Commands (Future)
+Update the color palette in `src/lib/config/pages.ts`. Each page configuration includes:
+- `color`: Background color
+- `textColor`: Text color
+- `slideDirection`: Animation direction
+- `zIndex`: Layer order
 
-- `init-documentation` - Scan and populate documentation cache
-- `teach-concept <concept>` - Interactive concept explanation
-- `version-check` - Verify dependency versions
-- `learning-path <technology>` - Generate learning sequence
+## 🚀 Deployment
 
-## 🎮 Learning Game Mechanics
+### Build
 
-### Progress Tracking
+```bash
+bun run build
+```
 
-- **Concept Mastery**: Understanding of individual concepts
-- **Integration Skills**: Ability to combine concepts effectively
-- **Problem-Solving**: Independent debugging and feature development
-- **Code Quality**: Writing maintainable, readable code
+The build output will be in the `.svelte-kit` directory.
 
-### Milestones & Achievements
+### Deploy to Vercel
 
-- **First Component**: Successfully create your first component
-- **Data Flow Master**: Understand and implement data flow patterns
-- **API Integration**: Connect frontend with backend services
-- **Deployment Ready**: Prepare application for production
+```bash
+npm i -g vercel
+vercel
+```
 
-## 🤝 How This Changes Your Workflow
+### Deploy to Netlify
 
-### Traditional Approach:
+```bash
+# Install Netlify CLI
+npm i -g netlify-cli
 
-1. Ask Claude to write feature
-2. Copy-paste code
-3. Debug when it doesn't work
-4. Repeat without understanding
+# Deploy
+netlify deploy --prod
+```
 
-### Claude-Quest Approach:
+## 📚 Documentation
 
-1. Ask about feature implementation
-2. Learn underlying concepts and patterns
-3. Understand how it integrates with your project
-4. Write the code yourself with guidance
-5. Build transferable knowledge for future features
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - Detailed architecture documentation
+- [CLAUDE.md](./CLAUDE.md) - Claude-Quest teaching configuration
+- [Svelte 5 Docs](https://svelte.dev/docs) - Official Svelte documentation
+- [SvelteKit Docs](https://svelte.dev/docs/kit) - SvelteKit framework docs
 
-## 🌍 Project Agnostic
+## 🤝 Contributing
 
-Claude-Quest works with any project:
+Contributions are welcome! Please follow these guidelines:
 
-- **Frontend**: React, Vue, Angular, Svelte, vanilla JS
-- **Backend**: Node.js, Python, Rust, Go, Java
-- **Mobile**: React Native, Flutter
-- **Desktop**: Electron, Tauri
-- **Any combination of the above**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-The system automatically detects your stack and provides relevant guidance.
+## 📄 License
 
-## 📖 Philosophy in Action
+This project is open source and available under the [MIT License](LICENSE).
 
-### Traditional AI Assistant
+## 🙏 Acknowledgments
 
-- "Here's the code you need"
-- Focus on immediate solutions
-- Generic, copy-paste responses
-- Limited learning transfer
-
-### Claude-Quest Teaching Guide
-
-- "Here's why this approach works and how it fits your project"
-- Focus on understanding and learning
-- Contextual, project-specific guidance
-- Knowledge that transfers to new situations
-
-## 🚀 Get Started
-
-1. Copy this directory to your project
-2. Run `node scripts/init-documentation.js`
-3. Start Claude Code
-4. Ask your first question and experience the transformation!
+- Built with [Svelte 5](https://svelte.dev) and [SvelteKit](https://kit.svelte.dev)
+- Inspired by modern animation patterns and material design principles
+- Created with Claude-Quest teaching methodology
 
 ---
 
-**Ready to level up your development learning?** Claude-Quest transforms every coding session into a learning adventure where you build both applications and expertise simultaneously.
-
-_Made with ❤️ for developers who want to understand what they're building_
+**Exhibit A** - A showcase of modern web animation techniques with Svelte 5

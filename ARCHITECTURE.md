@@ -2,7 +2,7 @@
 
 ## Overview
 
-A sophisticated, modular page animation system built with Svelte 5, featuring directional slides, matte colors, and special hero-to-main reveal animations.
+A sophisticated, modular page animation system built with Svelte 5, featuring directional slides, matte colors, and special hero-to-main reveal animations. The architecture follows Svelte 5 best practices with runes for reactive state management and a clean separation of concerns.
 
 ## Module Structure
 
@@ -29,8 +29,9 @@ src/lib/
 - **Reusability**: Components and utilities can be easily reused
 
 ### 2. Svelte 5 Runes
-- **State Management**: Uses `$state`, `$derived`, and `$effect` runes
-- **Class-Based Pattern**: Encapsulated state in `PageState` class
+- **State Management**: Uses `$state` and `$derived` runes
+- **Module-Level State**: State declared at module level in `.svelte.ts` files
+- **Class API Wrapper**: `PageState` class provides clean API over module state
 - **Universal Reactivity**: Works across `.svelte` and `.svelte.ts` files
 
 ### 3. Animation System
@@ -77,7 +78,7 @@ import { pageState } from '$lib/state/page-state.svelte';
 // Navigate to a page
 pageState.navigateTo('left');
 
-// Access current page
+// Access current page (reactive)
 const current = pageState.currentPage;
 
 // Check transition state
@@ -85,6 +86,9 @@ const isTransitioning = pageState.isTransitioning;
 
 // Go back in history
 pageState.goBack();
+
+// Reset to initial state
+pageState.reset();
 ```
 
 ### Adding New Pages
@@ -103,6 +107,7 @@ pageState.goBack();
 ## Development
 
 ### Prerequisites
+- Node.js 18+ or Bun
 - Svelte 5
 - TypeScript
 - SvelteKit
@@ -110,8 +115,10 @@ pageState.goBack();
 ### File Structure Best Practices
 - Keep components focused and single-purpose
 - Use TypeScript interfaces for props
-- Follow Svelte 5 rune patterns
+- Follow Svelte 5 rune patterns (module-level state in `.svelte.ts`)
 - Maintain clear module boundaries
+- Use `$props()` for component props
+- Leverage `$derived` for computed values
 
 ## Future Enhancements
 
